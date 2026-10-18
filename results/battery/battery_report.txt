@@ -1,0 +1,12 @@
+EX-POST OPPORTUNITY, NOT ACHIEVED TRADING REVENUE.
+1 MW / 2 MWh; 85% round-trip efficiency; 0.125 MWh SOC grid; daily SOC reset; hourly average RT / hourly DA; no trading fees, degradation, ancillary services, or price impact.
+
+market  year  days  tb2_spread_mean_usd_per_mwh  tb2_spread_median_usd_per_mwh  gross_tb2_expost_usd_per_mw_year  chronological_usd_per_mw_year  top10_day_share  spike_day_share  spike_days
+    RT  2022   365                      180.598                         57.931                        131836.900                     125548.115            0.401            0.518          18
+    RT  2023   365                      207.192                         44.603                        151250.460                     148633.701            0.454            0.670          24
+    RT  2024   366                       78.564                         37.478                         57508.980                      56142.232            0.365            0.267           5
+    RT  2025   365                       62.527                         45.191                         45644.865                      43986.526            0.171            0.077           2
+    DA  2022   365                      129.376                         71.165                         94444.430                      87118.792            0.239            0.149           4
+    DA  2023   365                      197.513                         45.630                        144184.490                     133975.074            0.395            0.546          18
+    DA  2024   366                       74.112                         36.602                         54249.900                      51505.996            0.318            0.177           3
+    DA  2025   365                       56.185                         44.345                         41014.940                      38283.141            0.149            0.000           0

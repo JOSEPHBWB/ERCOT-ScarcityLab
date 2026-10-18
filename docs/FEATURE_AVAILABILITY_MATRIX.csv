@@ -1,0 +1,8 @@
+feature,report_id,decision_time_required,publication_vintage_required,status,permitted_in_model
+DA settlement point price,NP4-190-CD,previous day 15:00 CT,yes (published DAM results),UNVERIFIED historical posting timestamp,no until verified
+RT settlement point price,NP6-905-CD,after delivery,no (label),LABEL_ONLY,no
+Seven-day load forecast,NP3-565-CD,previous day 15:00 CT,yes,UNVERIFIED historical archives,no until verified
+Wind forecast,NP4-732-CD,previous day 15:00 CT,yes,UNVERIFIED historical archives,no until verified
+Solar forecast,NP4-737-CD,previous day 15:00 CT,yes,UNVERIFIED historical archives,no until verified
+STSA reserve forecast,NP3-763-CD,previous day 15:00 CT,yes,UNVERIFIED historical archives,no until verified
+RT price adders,NP6-323-CD,after dispatch,no (mechanism analysis),DIAGNOSTIC_ONLY,no
