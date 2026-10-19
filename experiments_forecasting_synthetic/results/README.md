@@ -1,0 +1,1 @@
+Synthetic demonstration outputs are intentionally not distributed with the research findings. Run `python forecasting_scaffold/run_demo.py` from this directory if needed. No synthetic metric is an ERCOT finding.

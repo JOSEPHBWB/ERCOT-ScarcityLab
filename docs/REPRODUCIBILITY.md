@@ -51,3 +51,20 @@ The SCED filter flags unusually low reserve observations relative to both neighb
 - The chronological battery optimization is an **ex-post daily dispatch benchmark**, not real trading P&L. SOC discretization is 0.125 MWh; it resets to zero daily.
 
 For every derived statistic, distinguish year coverage, exact denominator, MW vs MWh and USD/MWh vs USD/MW-year.
+
+## One command per stage (v2.1)
+
+After the official raw data have been imported into `data/processed/` following the instructions above:
+
+```bash
+python scripts/run_all.py --stage prices --proc data/processed --out results/recomputed
+python scripts/verify_results.py --out results/recomputed --reference results
+```
+
+For the complete analysis, when all SCED, fuel-mix, and load processed inputs are ready:
+
+```bash
+python scripts/run_all.py --stage all --proc data/processed --out results/recomputed
+```
+
+`--stage all` requires the imported reserve/adder and load/fuel data; it fails on missing inputs rather than silently mixing previously committed results. The manifest records *source archive hashes* from the author's inputs for provenance. These files are not redistributed. The project can reproduce the price audit and battery analysis from historical prices alone, but a new clone still needs the official inputs and suitable extraction. Results under `results/` were created from the provided historical ERCOT exports; the ability to recreate each SCED/Fuel Mix result from a clean clone remains conditional on those inputs.

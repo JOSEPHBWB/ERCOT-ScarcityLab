@@ -17,7 +17,6 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from gridstatus import Ercot
 
 ZONE = 'America/Chicago'
 HUB = 'HB_HOUSTON'
@@ -120,6 +119,10 @@ def main():
     start=pd.Timestamp(args.start); end=pd.Timestamp(args.end)
     if end <= start: raise ValueError('end must be later than start')
     dates=pd.date_range(start,end-pd.Timedelta(days=1),freq='D')
+    try:
+        from gridstatus import Ercot
+    except ImportError as exc:
+        raise SystemExit("Install gridstatus for online data fetching; offline audit needs no gridstatus") from exc
     iso=Ercot()
     rt,fail_rt=retrieve(iso,dates,'REAL_TIME_15_MIN',cache,args.sleep)
     da,fail_da=retrieve(iso,dates,'DAY_AHEAD_HOURLY',cache,args.sleep)

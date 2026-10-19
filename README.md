@@ -1,10 +1,15 @@
 # ERCOT ScarcityLab
 
-**Why did Houston Hub price spikes disappear after 2023, and what did it do to battery economics?**
+**Why did extreme prices become rarer in ERCOT, and what did that mean for a two-hour battery?**
 
-An empirical study of ERCOT scarcity pricing, 2022–2026, built entirely from official ERCOT archives:
-15-minute Houston Hub settlement prices, ~420,000 SCED intervals of reserves and price adders, and system
-fuel-mix and load data. The repository prioritises market interpretation and reproducible calculations over model complexity.
+I started with a simple observation: Houston Hub recorded 41 independent real-time prices above
+$1,000/MWh in 2023, but only five in 2025. I wanted to know whether that change showed up
+in the operating data, and whether a battery would still find the same price volatility valuable.
+
+I joined four years of DA/RT settlement data to ERCOT's historical SCED reserves, price adders,
+load and fuel mix. The result is a market-structure study, not an attempt to claim live trading alpha.
+The part I found most interesting is that a resource that helps absorb short-lived scarcity prices
+also relies on price spreads for its own energy-arbitrage opportunity.
 
 ## Results at a glance
 
@@ -31,7 +36,7 @@ explain prices, never forecast inputs. Battery figures assume perfect foresight 
 4. **Storage became a large part of peak-hour supply.** Fuel Mix `Other` behaves like battery discharge (see validation below);
    in the 100 tightest net-load hours it rose from 0.2 GW (2022) to 3.6 GW (2025) and 7.3 GW (2026), as the tightest hours moved
    to 19:00–20:00. Storage does not explain the 2022→2023 reserve step, which remains unexplained here.
-5. **Remaining spikes are no longer system-tightness events.** 2022–23 spike hours sat at the 98–99th net-load percentile;
+5. **Remaining spikes have a different scarcity profile.** 2022–23 spike hours sat at the 98–99th net-load percentile;
    2024–25 spike hours at the 86–88th, with ~12 GW of online reserve in 2025.
 6. **Battery arbitrage value fell ~70% after 2023, almost entirely in the tail.** The median daily spread stayed at $37–58/MWh;
    the share of annual value earned on the 10 best days fell from 45% to 17%. This is consistent with storage cannibalising the
@@ -51,7 +56,7 @@ explain prices, never forecast inputs. Battery figures assume perfect foresight 
 
 ![Net load, storage and reserves](results/netload/ercot_netload_storage_reserves.png)
 
-**Is Fuel Mix `Other` really storage?** ERCOT does not label it as such, so it was tested against WSL (storage charging load):
+**Checking the Fuel Mix storage proxy.** ERCOT does not label it as such, so it was tested against WSL (storage charging load):
 
 | | 2022 | 2023 | 2024 | 2025 | 2026* |
 |---|---:|---:|---:|---:|---:|
@@ -74,11 +79,10 @@ fees and price impact, so it is an **ex-post energy-only opportunity**, not real
 
 ## What this tells a trader
 
-- Scarcity value in ERCOT moved from a handful of extreme days to a thin daily spread; tail-dependent strategies and assets
-  priced on 2022–23 history are mispriced against the current regime.
-- The remaining spikes are short and happen at moderate net load, so they look more like ramp, outage or local events than
-  system-wide shortage; DA price ranking already captures most of the risky hours (53–80% of spike hours fall in the day's top-3 DA hours).
-- Storage is now the marginal evening resource. Its own growth is a first-order input for any ERCOT price or battery-revenue view.
+- Scarcity value in ERCOT moved from a handful of extreme days to a thin daily spread; tail-dependent strategies and valuations
+  based only on 2022–23 history deserve stress testing against the more recent regime.
+- Remaining spikes are short and arise at different net-load levels; ramping and outages are possible explanations, not established causes; DA price ranking already captures most of the risky hours (53–80% of spike hours fall in the day's top-3 DA hours).
+- Storage contributes increasingly to evening supply. Its own growth is a first-order input for any ERCOT price or battery-revenue view.
 
 ## Scope and limits
 
@@ -96,7 +100,7 @@ python -m pytest -q
 ```
 
 Raw ERCOT workbooks are not redistributed and `data/` is Git-ignored, so a clean checkout reviews the tracked `results/`
-but cannot regenerate them without downloading the sources. Step-by-step commands: [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md).
+but cannot regenerate them without downloading the sources. Rebuilding and checking the research: [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md). A machine-readable list of official source filenames and SHA-256 hashes is at [`docs/SOURCE_MANIFEST.csv`](docs/SOURCE_MANIFEST.csv).
 
 ## Primary sources
 
@@ -116,4 +120,4 @@ Full tables and caveats: [`docs/AUDIT_FINDINGS.md`](docs/AUDIT_FINDINGS.md).
 - `tests/` — battery dispatch, DST and storage-proxy checks
 - `results/` — tables, reports and charts (no raw ERCOT data)
 - `docs/` — findings, reproducibility, data provenance
-- `forecasting_scaffold/` — separate point-in-time forecasting pipeline, tested on **synthetic data only**; not evidence about ERCOT
+- `experiments_forecasting_synthetic/` — archived, separate point-in-time forecasting pipeline, tested on **synthetic data only**; not evidence about ERCOT
